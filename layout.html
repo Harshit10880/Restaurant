@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Menu Layout - Arch Cards</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Nunito:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Vendor CSS -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --premium-red: #ce1212;
+            --premium-gold: #c9a84c;
+            --premium-gold-light: #e8cc7a;
+            --heading-font: 'Playfair Display', serif;
+            --nav-font: 'DM Sans', sans-serif;
+            --default-font: 'Nunito', sans-serif;
+            --food-font: 'Lora', serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: var(--default-font);
+            padding-bottom: 100px;
+        }
+
+        .preview-header {
+            background: #fff;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .preview-header h1 {
+            font-family: var(--heading-font);
+            color: var(--premium-red);
+        }
+
+        .layout-section {
+            background: #fff;
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .layout-title {
+            font-family: var(--heading-font);
+            font-size: 32px;
+            color: var(--premium-gold);
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 2px dashed #eee;
+            padding-bottom: 20px;
+        }
+
+        /* =========================================================
+       SECTION 1: ORIGINAL LAYOUT (Base Version)
+       ========================================================= */
+        .pill-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .pill-tab {
+            background: transparent;
+            border: none;
+            color: #777;
+            padding: 12px 34px;
+            border-radius: 50px;
+            font-family: var(--nav-font);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 0 0 1.5px rgba(206, 18, 18, 0.2);
+        }
+
+        .pill-tab.active,
+        .pill-tab:hover {
+            background: var(--premium-red);
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(206, 18, 18, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Improved contrast and accents for Dark Section tabs */
+        .next-gen-section .pill-tab {
+            color: rgba(234, 227, 217, 0.5);
+            box-shadow: inset 0 0 0 1px rgba(234, 227, 217, 0.15);
+        }
+
+        .next-gen-section .pill-tab.active,
+        .next-gen-section .pill-tab:hover {
+            background: var(--premium-gold);
+            color: #111;
+            box-shadow: 0 10px 24px rgba(201, 168, 76, 0.3);
+        }
+
+        .arch-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 15px 15px 45px 15px;
+            /* Increased padding to prevent overlap */
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .arch-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-25deg);
+            transition: all 1.8s ease-in-out;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .arch-card:hover::before {
+            left: 150%;
+        }
+
+        .arch-card:hover {
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            transform: translateY(-12px);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        .arch-img-wrapper {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-top-left-radius: 200px;
+            border-top-right-radius: 200px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            margin-bottom: 25px;
+            position: relative;
+            background: #fafafa;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .arch-card:hover .arch-img-wrapper {
+            border-top-left-radius: 120px;
+            border-top-right-radius: 120px;
+            height: 290px;
+        }
+
+        .arch-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .arch-card:hover .arch-img-wrapper img {
+            transform: scale(1.18) rotate(3deg);
+        }
+
+        .floating-badge {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            color: var(--premium-red);
+            font-family: var(--nav-font);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .arch-card:hover .floating-badge {
+            top: 15px;
+            background: var(--premium-red);
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(206, 18, 18, 0.3);
+        }
+
+        .arch-card .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--premium-gold);
+            color: #fff;
+            font-family: var(--nav-font);
+            font-size: 16px;
+            font-weight: 700;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 6px 16px rgba(201, 168, 76, 0.4);
+            z-index: 2;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .arch-card:hover .price-tag {
+            transform: scale(1.15) rotate(-12deg);
+            box-shadow: 0 12px 24px rgba(201, 168, 76, 0.6);
+            background: #111;
+        }
+
+        .arch-card h4 {
+            font-family: var(--food-font);
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            margin-top: 15px;
+            transition: color 0.4s ease;
+        }
+
+        .arch-card:hover h4 {
+            color: var(--premium-red);
+        }
+
+        .arch-card .ingredients {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 0;
+            padding: 0 10px;
+            line-height: 1.6;
+        }
+
+        .add-btn {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            color: #fff;
+            height: 48px;
+            width: 48px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        .add-btn-text {
+            font-family: var(--nav-font);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            max-width: 0;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .arch-card:hover .add-btn {
+            bottom: 25px;
+        }
+
+        .add-btn:hover {
+            background: var(--premium-red);
+            width: 160px;
+            box-shadow: 0 10px 24px rgba(206, 18, 18, 0.4);
+        }
+
+        .add-btn:hover .add-btn-text {
+            max-width: 100px;
+            opacity: 1;
+            margin-left: 18px;
+            margin-right: 8px;
+        }
+
+        .add-btn i {
+            transition: transform 0.4s ease;
+        }
+
+        .add-btn:hover i {
+            transform: translateX(4px);
+        }
+
+
+        /* =========================================================
+       SECTION 2: EXPERIMENTAL DUPLICATE (Full Premium Upgrades)
+       ========================================================= */
+        .next-gen-section {
+            background: #12121c;
+            /* Deep Charcoal Dark Mode */
+            color: #eae3d9;
+            /* Cream Text */
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin-bottom: 60px;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5), 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .next-gen-section .layout-title {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* V2 Card Base */
+        .arch-card-v2 {
+            background: rgba(255, 255, 255, 0.03);
+            /* Frosted Glass Base */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 24px;
+            padding: 15px 15px 45px 15px;
+            /* Increased padding to prevent overlap */
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            /* Re-added solid subtle border mask */
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            /* removed overflow: hidden to allow image to pop OUT of card! */
+            z-index: 1;
+        }
+
+        /* Spotlight Glow (Cursor Follows) Layer */
+        .spotlight {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            pointer-events: none;
+            z-index: 1.5;
+            /* In front of the mask but behind the content */
+            opacity: 0;
+            pointer-events: none;
+            /* Never interferes with interaction */
+            transition: opacity 0.5s ease;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                    rgba(201, 168, 76, 0.35),
+                    transparent 40%);
+        }
+
+        .arch-card-v2:hover .spotlight {
+            opacity: 1;
+        }
+
+        /* Glare Sweep Layer */
+        .glare-sweep {
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: skewX(-25deg);
+            transition: all 2.2s ease-in-out;
+            z-index: 20;
+            /* Swept OVER badge and price tag for realism */
+            pointer-events: none;
+        }
+
+        .arch-card-v2:hover .glare-sweep {
+            left: 150%;
+        }
+
+        .arch-card-v2:hover {
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            transform: translateY(-12px);
+            border-color: rgba(201, 168, 76, 0.3);
+        }
+
+        /* V2 Image Arch Wrapper (Container) */
+        .arch-img-wrapper-v2 {
+            width: 100%;
+            height: 280px;
+            margin-bottom: 35px;
+            /* Extra room due to scale pop-out */
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* The arch background logic separated so img can overflow */
+        .arch-bg-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-top-left-radius: 200px;
+            border-top-right-radius: 200px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            background: #0d0d14;
+            box-shadow: inset 0 8px 30px rgba(0, 0, 0, 0.8);
+            z-index: 1;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .arch-card-v2:hover .arch-bg-mask {
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            bottom: 20px;
+            /* Slight squeeze to accentuate 3D scale */
+        }
+
+        /* 3D PARALLAX ESCAPE IMAGE */
+        .arch-img-wrapper-v2 img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+            filter: grayscale(100%) opacity(0.6) contrast(1.2);
+            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), filter 1s ease;
+            z-index: 2;
+            /* Sits above the arch background */
+        }
+
+        .arch-card-v2:hover .arch-img-wrapper-v2 img {
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6)) grayscale(0%) opacity(1) contrast(1.1);
+            transform: scale(1.3) translateY(-15px) rotate(4deg);
+            /* Pops completely outside! */
+        }
+
+        /* 5-Star Rating Reveal */
+        .rating-stars {
+            color: var(--premium-gold-light);
+            font-size: 14px;
+            letter-spacing: 2px;
+            opacity: 0;
+            height: 20px;
+            /* Fixed height to prevent layout shift */
+            transform: translateY(10px);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .arch-card-v2:hover .rating-stars {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rating-stars span {
+            font-family: var(--nav-font);
+            font-size: 11px;
+            color: rgba(234, 227, 217, 0.5);
+            letter-spacing: 0;
+            margin-left: 5px;
+        }
+
+        /* Content */
+        .v2-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .arch-card-v2 h4 {
+            font-family: var(--food-font);
+            font-size: 24px;
+            font-weight: 700;
+            color: #eae3d9;
+            margin-bottom: 8px;
+            transition: color 0.4s ease;
+        }
+
+        .arch-card-v2:hover h4 {
+            background: linear-gradient(90deg, #eae3d9, var(--premium-gold-light), #fff, #eae3d9);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shine-text 3s linear infinite;
+        }
+
+        @keyframes shine-text {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .arch-card-v2 .ingredients {
+            font-size: 14px;
+            color: rgba(234, 227, 217, 0.6);
+            margin-bottom: 0;
+            padding: 0 10px;
+            line-height: 1.6;
+        }
+
+        .arch-card-v2 .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--premium-red);
+            color: #fff;
+            font-family: var(--nav-font);
+            font-size: 16px;
+            font-weight: 700;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 6px 16px rgba(206, 18, 18, 0.4);
+            z-index: 10;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .arch-card-v2:hover .price-tag {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 12px 30px rgba(201, 168, 76, 0.5);
+            background: var(--premium-gold);
+            color: #111;
+        }
+
+        .arch-card-v2 .floating-badge {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 26, 36, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--premium-gold-light);
+            font-family: var(--nav-font);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .arch-card-v2:hover .floating-badge {
+            top: 15px;
+            background: var(--premium-gold);
+            color: #111;
+        }
+
+        .arch-card-v2 .add-btn {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--premium-gold);
+            color: #111;
+            height: 48px;
+            width: 48px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 20px rgba(201, 168, 76, 0.3);
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 15;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .arch-card-v2:hover .add-btn {
+            bottom: 25px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .arch-card-v2 .add-btn:hover {
+            background: var(--premium-red);
+            color: #fff;
+            width: 160px;
+            box-shadow: 0 10px 24px rgba(206, 18, 18, 0.5);
+        }
+
+        .arch-card-v2 .add-btn:hover .add-btn-text {
+            max-width: 100px;
+            opacity: 1;
+            margin-left: 18px;
+            margin-right: 8px;
+        }
+
+        .arch-card-v2 .add-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Remove clipping on row so expanded images survive bounds */
+        .row {
+            overflow: visible;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+
+            .layout-section,
+            .next-gen-section {
+                padding: 40px 20px;
+            }
+
+            .arch-img-wrapper,
+            .arch-img-wrapper-v2 {
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="preview-header">
+        <h1>Menu Iterations (Original vs Experimental)</h1>
+        <p>Compare the baseline layout with a completely new "Experimental V2" directly below it.</p>
+    </div>
+
+    <div class="container">
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 1: THE ORIGINAL APPROVED LAYOUT -->
+        <!-- ========================================================================= -->
+        <div class="layout-section">
+            <h2 class="layout-title">Section 1: Baseline (Active Version)</h2>
+
+            <div class="pill-tabs">
+                <button class="pill-tab active">Starters</button>
+                <button class="pill-tab">Breakfast</button>
+                <button class="pill-tab">Lunch</button>
+                <button class="pill-tab">Dinner</button>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="arch-card">
+                        <div class="price-tag">$8.95</div>
+                        <div class="arch-img-wrapper">
+                            <span class="floating-badge">Chef's Special</span>
+                            <img src="assets/img/menu/menu-item-3.png" alt="Menu Item">
+                        </div>
+                        <h4>Est Eligendi</h4>
+                        <p class="ingredients">Hand-picked seasonal vegetables, truffle oil, and a dash of coastal sea
+                            salt.</p>
+                        <div class="add-btn">
+                            <span class="add-btn-text">Order Now</span>
+                            <i class="bi bi-arrow-right-short"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="arch-card">
+                        <div class="price-tag">$12.95</div>
+                        <div class="arch-img-wrapper">
+                            <img src="assets/img/menu/menu-item-4.png" alt="Menu Item">
+                        </div>
+                        <h4>Eos Quibusdam</h4>
+                        <p class="ingredients">Slow-roasted duck served over a bed of quinoa with our signature
+                            pomegranate glaze.</p>
+                        <div class="add-btn">
+                            <span class="add-btn-text">Order Now</span>
+                            <i class="bi bi-arrow-right-short"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="arch-card">
+                        <div class="price-tag">$5.95</div>
+                        <div class="arch-img-wrapper">
+                            <span class="floating-badge">Vegan</span>
+                            <img src="assets/img/menu/menu-item-5.png" alt="Menu Item">
+                        </div>
+                        <h4>Magnam Triste</h4>
+                        <p class="ingredients">Organic baby greens mixed generously with toasted almonds and citrus
+                            vinaigrette.</p>
+                        <div class="add-btn">
+                            <span class="add-btn-text">Order Now</span>
+                            <i class="bi bi-arrow-right-short"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ========================================================================= -->
+        <!-- SECTION 2: THE EXPERIMENTAL COPY (V2 Ultimate Edit) -->
+        <!-- ========================================================================= -->
+        <div class="next-gen-section">
+            <h2 class="layout-title text-white">Section 2:
+                Experimental Iteration (Dark Glass & Glow)</h2>
+
+            <div class="row g-4 justify-content-center">
+                <!-- V2 Card 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="arch-card-v2" onmousemove="handleSpotlight(event, this)">
+                        <div class="spotlight"></div>
+                        <div class="glare-sweep"></div>
+                        <div class="price-tag">$8.95</div>
+                        <span class="floating-badge">Chef's Special</span>
+
+                        <div class="arch-img-wrapper-v2">
+                            <div class="arch-bg-mask"></div>
+                            <img src="assets/img/menu/menu-item-3.png" alt="Menu Item">
+                        </div>
+
+                        <div class="v2-content">
+                            <div class="rating-stars">★★★★★ <span>(142 Reviews)</span></div>
+                            <h4>Est Eligendi</h4>
+                            <p class="ingredients">Hand-picked seasonal vegetables, truffle oil, and a dash of coastal
+                                sea salt.</p>
+                        </div>
+
+                        <div class="add-btn">
+                            <span class="add-btn-text">Order Now</span>
+                            <i class="bi bi-arrow-right-short"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- V2 Card 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="arch-card-v2" onmousemove="handleSpotlight(event, this)">
+                        <div class="spotlight"></div>
+                        <div class="glare-sweep"></div>
+                        <div class="price-tag">$12.95</div>
+
+                        <div class="arch-img-wrapper-v2">
+                            <div class="arch-bg-mask"></div>
+                            <img src="assets/img/menu/menu-item-4.png" alt="Menu Item">
+                        </div>
+
+                        <div class="v2-content">
+                            <div class="rating-stars">★★★★★ <span>(84 Reviews)</span></div>
+                            <h4>Eos Quibusdam</h4>
+                            <p class="ingredients">Slow-roasted duck served over a bed of quinoa with our signature
+                                pomegranate glaze.</p>
+                        </div>
+
+                        <div class="add-btn">
+                            <span class="add-btn-text">Order Now</span>
+                            <i class="bi bi-arrow-right-short"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- V2 Card 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="arch-card-v2" onmousemove="handleSpotlight(event, this)">
+                        <div class="spotlight"></div>
+                        <div class="glare-sweep"></div>
+                        <div class="price-tag">$5.95</div>
+                        <span class="floating-badge">Vegan</span>
+
+                        <div class="arch-img-wrapper-v2">
+                            <div class="arch-bg-mask"></div>
+                            <img src="assets/img/menu/menu-item-5.png" alt="Menu Item">
+                        </div>
+
+                        <div class="v2-content">
+                            <div class="rating-stars">★★★★★ <span>(210 Reviews)</span></div>
+                            <h4>Magnam Triste</h4>
+                            <p class="ingredients">Organic baby greens mixed generously with toasted almonds and citrus
+                                vinaigrette.</p>
+                        </div>
+
+                        <div class="add-btn">
+                            <span class="add-btn-text">Order Now</span>
+                            <i class="bi bi-arrow-right-short"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Spotlight JS Logic for V2 Cards
+        function handleSpotlight(e, card) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        }
+    </script>
+
+</body>
+
+</html>

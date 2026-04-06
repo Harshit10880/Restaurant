@@ -1,0 +1,597 @@
+/**
+ * premium.css — Awwwards-Style Overrides for Yummy Template
+ * Layered on top of main.css. Do not edit main.css for these styles.
+ */
+
+/* ============================================================
+   1. PREMIUM COLOR PALETTE & TYPOGRAPHY
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+
+:root {
+  --premium-dark: #0d0d14;
+  --premium-charcoal: #1a1a24;
+  --premium-gold: #d4af37;
+  --premium-gold-light: #f2e3b6;
+  --premium-cream: #eae3d9;
+  --premium-red: #a10b0b;
+  --premium-glass: rgba(26, 26, 36, 0.72);
+  --premium-shadow: 0 24px 64px rgba(0, 0, 0, 0.25);
+}
+
+/* ============================================================
+   2. GLOBAL BODY & SCROLLBAR
+   ============================================================ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--premium-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--premium-gold);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   3. CUSTOM CURSOR (Desktop Only)
+   ============================================================ */
+@media (hover: hover) {
+
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+}
+
+#cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--premium-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  mix-blend-mode: difference;
+}
+
+#cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--premium-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  mix-blend-mode: difference;
+  transition: width 0.3s, height 0.3s, opacity 0.3s, background 0.3s;
+}
+
+#cursor-outline.hovered {
+  width: 60px;
+  height: 60px;
+  background: rgba(201, 168, 76, 0.08);
+}
+
+@media (hover: none) {
+
+  #cursor-dot,
+  #cursor-outline {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   4. HEADER / NAVBAR — GLASSMORPHISM ON SCROLL
+   ============================================================ */
+.header {
+  transition: background 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
+}
+
+.header.scrolled-glass {
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ============================================================
+   5. GLOBAL SECTIONS — MORE BREATHING ROOM
+   ============================================================ */
+section,
+.section {
+  padding: 100px 0;
+}
+
+/* ============================================================
+   6. SECTION TITLES — PREMIUM FONT
+   ============================================================ */
+.section-title p {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.section-title h2 {
+  color: var(--premium-gold);
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   7. HERO SECTION
+   ============================================================ */
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 62px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.hero h1 .word {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.hero h1 .char {
+  display: inline-block;
+  transform-origin: bottom;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.8;
+  max-width: 420px;
+  line-height: 1.7;
+}
+
+.hero-img {
+  perspective: 800px;
+  will-change: transform;
+}
+
+.hero-img img {
+  transition: transform 0.05s linear;
+  will-change: transform;
+  filter: drop-shadow(0 40px 60px rgba(206, 18, 18, 0.18));
+}
+
+/* ============================================================
+   8. MENU SECTION — 3D CARD TILT READY
+   ============================================================ */
+.menu-item {
+  transform-style: preserve-3d;
+  will-change: transform;
+  border-radius: 16px;
+  padding: 16px;
+  background: var(--surface-color);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+  box-shadow: var(--premium-shadow);
+}
+
+.menu-item .menu-img {
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+}
+
+.menu-item img {
+  transition: transform 0.4s ease;
+  border-radius: 12px;
+}
+
+.menu-item:hover img {
+  transform: scale(1.04);
+}
+
+.menu-item h4 {
+  font-family: 'Playfair Display', serif;
+  margin-top: 14px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* Nav tabs in menu section */
+.menu .nav-tabs {
+  gap: 8px;
+  border-bottom: none;
+  margin-bottom: 32px;
+}
+
+.menu .nav-tabs .nav-link {
+  border: 1px solid rgba(206, 18, 18, 0.2);
+  border-radius: 50px;
+  padding: 10px 28px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu .nav-tabs .nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-color);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: -1;
+  border-radius: 50px;
+}
+
+.menu .nav-tabs .nav-link:hover::before,
+.menu .nav-tabs .nav-link.active::before {
+  transform: scaleX(1);
+}
+
+.menu .nav-tabs .nav-link h4 {
+  margin: 0;
+  font-size: 16px;
+  font-family: var(--nav-font);
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.menu .nav-tabs .nav-link.active h4,
+.menu .nav-tabs .nav-link:hover h4 {
+  color: #fff;
+}
+
+/* ============================================================
+   9. ABOUT SECTION — PARALLAX WRAPPER
+   ============================================================ */
+.about-img-secondary {
+  will-change: transform;
+}
+
+/* Bullet points — scroll-linked highlight */
+.about ul li {
+  transition: color 0.4s ease, transform 0.4s ease;
+  padding: 6px 0;
+}
+
+.about ul li.highlighted {
+  color: var(--accent-color);
+  transform: translateX(6px);
+}
+
+/* ============================================================
+   10. WHY US — ICON BOX 3D HOVER
+   ============================================================ */
+.why-us .icon-box {
+  border-radius: 16px;
+  padding: 32px 24px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  background: var(--surface-color);
+  will-change: transform;
+}
+
+.why-us .icon-box:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--premium-shadow);
+}
+
+/* ============================================================
+   11. CHEFS — TEAM CARDS UPGRADE
+   ============================================================ */
+.team-member {
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--premium-shadow);
+}
+
+.team-member .member-img {
+  overflow: hidden;
+  position: relative;
+}
+
+.team-member .member-img img {
+  transition: transform 0.5s ease;
+}
+
+.team-member:hover .member-img img {
+  transform: scale(1.07);
+}
+
+/* ============================================================
+   12. BUTTONS — SHIMMER HOVER EFFECT
+   ============================================================ */
+.btn-get-started,
+.btn-getstarted,
+.more-btn,
+.book-a-table .btn,
+form button[type="submit"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-get-started::after,
+.btn-getstarted::after,
+form button[type="submit"]::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.22);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.btn-get-started:hover::after,
+.btn-getstarted:hover::after,
+form button[type="submit"]:hover::after {
+  left: 125%;
+}
+
+/* ============================================================
+   13. STATS SECTION — NUMBER GLOW
+   ============================================================ */
+.stats-item span {
+  font-size: 56px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 40%, var(--premium-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   14. PRELOADER — PREMIUM STYLE (Cinematic Slide Up)
+   ============================================================ */
+#preloader {
+  background: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#preloader::before,
+#preloader::after {
+  content: none !important;
+  animation: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+#preloader::after {
+  content: "YUMMY";
+  display: block !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  letter-spacing: 12px;
+  color: var(--premium-red);
+  animation: pulse-loader 1.2s infinite alternate !important;
+}
+
+@keyframes pulse-loader {
+  0% {
+    opacity: 0.3;
+    filter: drop-shadow(0 0 0px transparent);
+  }
+
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(161, 11, 11, 0.5));
+    transform: scale(1.05);
+  }
+}
+
+/* ============================================================
+   15. FOOTER — SUBTLE GOLD BORDER
+   ============================================================ */
+.footer {
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+.footer .social-links a:hover {
+  color: var(--premium-gold);
+  border-color: var(--premium-gold);
+}
+
+/* ============================================================
+   16. SCROLL TOP BUTTON — GOLD ACCENT
+   ============================================================ */
+.scroll-top {
+  background: linear-gradient(135deg, var(--premium-gold), var(--premium-red));
+}
+
+/* ============================================================
+   17. ANIMATION INITIAL STATES (hidden before GSAP fires)
+   ============================================================ */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.gsap-reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.gsap-reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+/* ============================================================
+   18. MENU GLARE LAYER (VanillaTilt)
+   ============================================================ */
+.menu-item .vanilla-tilt-glare-wrapper {
+  border-radius: 20px;
+}
+
+/* ============================================================
+   19. FONT OVERRIDES & ADVANCED STYLING POLISH
+   ============================================================ */
+/* Navbar Fonts & Polish */
+.navmenu a,
+.navmenu a:focus {
+  font-family: var(--nav-font) !important;
+  letter-spacing: 0.3px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.header .btn-getstarted,
+.header .btn-getstarted:focus {
+  font-family: var(--nav-font);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Section titles */
+.section-title h2 {
+  font-family: var(--nav-font) !important;
+}
+
+.section-title p {
+  font-family: var(--heading-font) !important;
+}
+
+/* Hero Section */
+.hero h1 {
+  font-family: var(--heading-font) !important;
+}
+
+.hero p {
+  font-family: var(--default-font) !important;
+}
+
+/* About Section - "Book a table" box polish */
+.about .book-a-table {
+  border: 1.5px solid transparent !important;
+  border-radius: 20px;
+  background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box,
+    linear-gradient(135deg, var(--premium-gold), var(--premium-red)) border-box;
+  padding: 30px !important;
+  text-align: center;
+  position: relative;
+}
+
+.about .book-a-table::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: rgba(201, 168, 76, 0.04);
+  pointer-events: none;
+}
+
+.about .book-a-table h3 {
+  font-family: var(--heading-font) !important;
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 2;
+}
+
+.about .book-a-table p {
+  font-family: var(--food-font) !important;
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+}
+
+/* Why Us Section */
+.why-us .why-box {
+  border-radius: 24px !important;
+  background: linear-gradient(135deg, var(--premium-red), #8b0000) !important;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 40px !important;
+}
+
+.why-us .why-box h3 {
+  font-family: var(--food-font) !important;
+}
+
+.why-us .icon-box {
+  border: 1.5px solid transparent !important;
+  border-radius: 20px !important;
+  background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box,
+    linear-gradient(135deg, rgba(206, 18, 18, 0.2), rgba(201, 168, 76, 0.3)) border-box !important;
+  transition: all 0.4s ease;
+}
+
+.why-us .icon-box:hover {
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--premium-gold), var(--premium-red)) border-box !important;
+}
+
+/* Menu Section */
+.menu-item {
+  border-radius: 20px !important;
+  border: 1.5px solid transparent;
+  background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box,
+    linear-gradient(135deg, rgba(201, 168, 76, 0.15), rgba(206, 18, 18, 0.05)) border-box !important;
+  padding: 24px !important;
+}
+
+.menu-item:hover {
+  background: linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--premium-gold), var(--premium-red)) border-box !important;
+}
+
+.menu-item h4 {
+  font-family: var(--food-font) !important;
+  font-weight: 700;
+}
+
+.menu-item .ingredients {
+  font-family: var(--default-font) !important;
+}
+
+.menu-item .price {
+  font-family: var(--nav-font) !important;
+  font-weight: 800;
+}
+
+/* Footer Fonts */
+.footer h4 {
+  font-family: var(--food-font) !important;
+  font-weight: 700;
+}
+
+.footer p,
+.footer .credits,
+.footer .address p {
+  font-family: var(--default-font) !important;
+}

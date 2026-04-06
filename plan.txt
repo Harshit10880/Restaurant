@@ -1,0 +1,2 @@
+1. there is change background image of hero section with high quality food with dark or black colour opacity
+2. remove un necessecory things from navbar

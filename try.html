@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINTYFRESH - Exact Layout</title>
+    <style>
+        /* --- General Reset & Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            background-color: #f8f5f0; /* Cream top color */
+        }
+
+        /* --- Dynamic Background Image Layer --- */
+        .dynamic-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15; /* Keeps it subtle so the UI stays clean */
+            transition: background-image 0.8s ease-in-out;
+            z-index: 0;
+        }
+
+        /* --- The White Angled Bottom Shape --- */
+        .white-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background-color: #ffffff;
+            /* Creates the angled pyramid shape behind the text */
+            clip-path: polygon(0 100%, 0 45%, 50% 10%, 100% 45%, 100% 100%);
+            z-index: 1;
+        }
+
+        /* --- Header --- */
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 30px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        nav a.active {
+            color: #e36c22;
+        }
+
+        .header-right {
+            font-size: 14px;
+            color: #555;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* --- Decorative Icons --- */
+        .deco-icon {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            z-index: 10;
+        }
+        .deco-top-left { top: 80px; left: 60px; }
+        .deco-top-right { top: 80px; right: 60px; }
+        .deco-bottom-left { bottom: 40px; left: 60px; opacity: 0.3; }
+        .deco-bottom-right { bottom: 40px; right: 60px; opacity: 0.3; }
+
+        /* --- Carousel Container --- */
+        .carousel-container {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            perspective: 1200px;
+        }
+
+        /* --- Card Styles --- */
+        .card {
+            position: absolute;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 6px solid #f8f5f0; /* The slight cream border on images */
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Exact Card Positions matching your screenshot */
+        .card.center {
+            width: 280px;
+            height: 420px;
+            transform: translateX(0) translateY(0) rotate(0deg);
+            z-index: 10;
+            border-color: #ffffff; /* Center gets white border usually */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .card.left {
+            width: 300px;
+            height: 380px;
+            transform: translateX(-260px) translateY(30px) rotate(-12deg);
+            z-index: 8;
+        }
+
+        .card.right {
+            width: 300px;
+            height: 380px;
+            transform: translateX(260px) translateY(30px) rotate(12deg);
+            z-index: 8;
+        }
+
+        .card.far-left {
+            width: 260px;
+            height: 340px;
+            transform: translateX(-520px) translateY(80px) rotate(-20deg);
+            z-index: 4;
+            opacity: 0.8;
+        }
+
+        .card.far-right {
+            width: 260px;
+            height: 340px;
+            transform: translateX(520px) translateY(80px) rotate(20deg);
+            z-index: 4;
+            opacity: 0.8;
+        }
+
+        /* Hide cards that are out of bounds */
+        .card.hidden {
+            opacity: 0;
+            transform: translateY(150px) scale(0.5);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- Text Content Section --- */
+        .text-section {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+            max-width: 650px;
+            z-index: 10;
+        }
+
+        .text-section h1 {
+            font-size: 42px;
+            font-weight: 500;
+            color: #222;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .text-section h1 .highlight {
+            color: #e36c22;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .text-section p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .scroll-text {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #999;
+            z-index: 10;
+        }
+
+        /* SVG Icon Utilities */
+        svg { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="dynamic-bg" id="dynamic-bg"></div>
+
+    <div class="white-floor"></div>
+
+    <header>
+        <div class="logo">MMTERSERAH</div>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#">About</a>
+            <a href="#">Brands</a>
+            <a href="#">Career</a>
+        </nav>
+        <div class="header-right">
+            <span>Cart (0)</span>
+            <span>EN v</span>
+        </div>
+    </header>
+
+    <div class="deco-icon deco-top-left">
+        <svg viewBox="0 0 100 100"><rect x="20" y="50" width="30" height="30" fill="#333" transform="rotate(-45 35 65)"/><rect x="50" y="20" width="30" height="30" fill="#333" transform="rotate(-45 65 35)"/></svg>
+    </div>
+    <div class="deco-icon deco-top-right">
+        <svg viewBox="0 0 100 100"><rect x="20" y="50" width="30" height="30" fill="#333" transform="rotate(-45 35 65)"/><rect x="50" y="20" width="30" height="30" fill="#333" transform="rotate(-45 65 35)"/></svg>
+    </div>
+    <div class="deco-icon deco-bottom-left">
+        <svg viewBox="0 0 100 100"><line x1="50" y1="20" x2="50" y2="80" stroke="#ccc" stroke-width="4"/><line x1="20" y1="50" x2="80" y2="50" stroke="#ccc" stroke-width="4"/></svg>
+    </div>
+    <div class="deco-icon deco-bottom-right">
+        <svg viewBox="0 0 100 100"><line x1="50" y1="20" x2="50" y2="80" stroke="#ccc" stroke-width="4"/><line x1="20" y1="50" x2="80" y2="50" stroke="#ccc" stroke-width="4"/></svg>
+    </div>
+
+    <main class="carousel-container" id="carousel">
+        <div class="card" data-index="0">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600" alt="Couple dining">
+        </div>
+        <div class="card" data-index="1">
+            <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cb438?q=80&w=600" alt="Chef plating">
+        </div>
+        <div class="card" data-index="2">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=600" alt="Restaurant Interior">
+        </div>
+        <div class="card" data-index="3">
+            <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=600" alt="Sushi plating">
+        </div>
+        <div class="card" data-index="4">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600" alt="Woman dining">
+        </div>
+    </main>
+
+    <div class="text-section">
+        <h1>Crafting Dining & Lifestyle<br><span class="highlight">Experiences</span> in Tokyo</h1>
+        <p>A premium restaurant with iconic interior design and high-quality menus, offering an elegant dining experience in Tokyo.</p>
+    </div>
+
+    <div class="scroll-text">[Scroll to Explore]</div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const dynamicBg = document.getElementById('dynamic-bg');
+        
+        // These classes dictate the position and rotation of the cards
+        const positions = ['far-left', 'left', 'center', 'right', 'far-right'];
+
+        // Function to assign classes based on current state
+        function updateCarousel() {
+            cards.forEach((card, index) => {
+                // Clear existing position classes
+                card.classList.remove(...positions, 'hidden');
+                
+                // Assign new class if it falls within the 5 visible slots
+                if (index < positions.length) {
+                    card.classList.add(positions[index]);
+                } else {
+                    card.classList.add('hidden');
+                }
+
+                // If this is the center card, update the background image
+                if (positions[index] === 'center') {
+                    const imgSrc = card.querySelector('img').src;
+                    dynamicBg.style.backgroundImage = `url('${imgSrc}')`;
+                }
+            });
+        }
+
+        // Initialize layout
+        updateCarousel();
+
+        // Handle Click Events to shift the carousel
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Find out what position was clicked
+                const currentPos = Array.from(card.classList).find(cls => positions.includes(cls));
+                
+                if (currentPos === 'left' || currentPos === 'far-left') {
+                    // Shift array right (brings left items to center)
+                    positions.unshift(positions.pop());
+                    updateCarousel();
+                } 
+                else if (currentPos === 'right' || currentPos === 'far-right') {
+                    // Shift array left (brings right items to center)
+                    positions.push(positions.shift());
+                    updateCarousel();
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
