@@ -856,3 +856,20 @@ form button[type="submit"]:hover::after {
     height: 240px;
   }
 }
+/* --- Final Theme Overrides for Global Consistency --- */
+.section-title h2 { color: rgba(255, 255, 255, 0.4) !important; }
+.section-title .description-title { color: var(--accent-color); }
+.testimonial-item, .event-item, .team-member, .info-item, .php-email-form {
+  background: rgba(26, 26, 36, 0.6) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(201, 168, 76, 0.1); border-radius: 15px; padding: 30px !important;
+}
+.info-item i {
+  background: var(--accent-color) !important; color: #12121c !important; border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+}
+.php-email-form input, .php-email-form textarea {
+  background: rgba(18, 18, 28, 0.5) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; color: var(--default-color) !important;
+}
+.php-email-form button[type="submit"] {
+  background: var(--accent-color) !important; color: #12121c !important; border-radius: 50px !important; padding: 10px 30px !important; border: none !important; font-weight: 600;
+}
+.section, .footer { background-color: var(--background-color) !important; }
+
