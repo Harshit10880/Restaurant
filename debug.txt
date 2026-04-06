@@ -1,0 +1,5 @@
+"PSPath","PSParentPath","PSChildName","PSDrive","PSProvider","ReadCount","Length"
+"D:\GSAP try\project_1\yummy-red-1.0.0\index.html","D:\GSAP try\project_1\yummy-red-1.0.0","index.html","D","Microsoft.PowerShell.Core\FileSystem","308","46"
+"D:\GSAP try\project_1\yummy-red-1.0.0\index.html","D:\GSAP try\project_1\yummy-red-1.0.0","index.html","D","Microsoft.PowerShell.Core\FileSystem","309","118"
+"D:\GSAP try\project_1\yummy-red-1.0.0\index.html","D:\GSAP try\project_1\yummy-red-1.0.0","index.html","D","Microsoft.PowerShell.Core\FileSystem","310","58"
+"D:\GSAP try\project_1\yummy-red-1.0.0\index.html","D:\GSAP try\project_1\yummy-red-1.0.0","index.html","D","Microsoft.PowerShell.Core\FileSystem","311","37"
